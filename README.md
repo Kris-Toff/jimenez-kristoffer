@@ -1,66 +1,36 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Technical Aptitude Test : Easy Round
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Brief Solution:
+    - Configuring hours: I created a simple dashboard for updating bakery opening hours, lunch time and the every other week option. To access the dashboard I also created a login page with basic email and password fields. You will be able to access the login page by manualy typing the "/login" in the address bar.
+    
+    - Realtime Store Status:  I created a reusable component for displaying bakery store status (open/close). The HomepageController@index will get the current date time (based on your timezone) and check in the business_hours table if the current day is open based on the configured time. If the store is closed, getting the next opening date, I created a function ( getNextOpenDay ) that iterates and add 1 day to the current date and check if in the business_hours DB if the store is open.
+    
+    - Date Picker for Visitors: I created a component with a datepicker with a button that checks if the bakery is open or close on that specific date. I created a function that checks the if a specific date is open similar to the HomepageController@index but the date is based on the datepicker. If the store is closed the checker will return a date on when is the next open date ( this is using similar function: getNextOpenDay ). In the frontend side, the next open date is being processed to a human readable format. I created a composable ( useDateFormatting.js ) to change the date.
 
-## About Laravel
+Setup & Installation:
+    - This is my setup, I am using Laravel 12 + Docker + Sail + Inertia + Vuejs 3 and MySQL in a Windows Machine
+    
+    - These steps are based on the Laravel documentation: https://laravel.com/docs/12.x/installation
+    - Install PHP, Composer, Laravel, Node and NPM
+    - If you have PHP and Composer Installed run : composer global require laravel/installer to install laravel installer
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+    - Pull from the repository: https://github.com/Kris-Toff/jimenez-kristoffer.git
+    - Enter "cd jimenez-kristoffer"
+    - Run npm install && npm run build
+    - Run composer run dev
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+    - Start docker
+    - Open a new terminal
+    - Run composer install
+    - Run ./vendor/bin/sail up ( this will start the server, do not close )
+    - Open a new terminal
+    - Run ./vendor/bin/sail artisan migrate
+    - Run ./vendor/bin/sail artisan db:seed
+  
+    - Open http://localhost in browser
+    - Go to http://localhost/login to access dashboard page
+    - Using these credentials: email: admin@mail.com, password: admin
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Challenges faced:
+    - One challenge I encountered before working on this is how to have one repository for both frontend and backend. I had to use Inertia to solve this problem.
+    - For the every other week opening, I had to create a check box to toggle if this day will open every other week, and provide a date picker as a starting date and used as a reference if it is open or close this week.
